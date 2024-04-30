@@ -1,5 +1,5 @@
 import { Box, Chip, FormControl, InputLabel, MenuItem, OutlinedInput, Select, SelectChangeEvent, TextField } from "@mui/material";
-import React, { useCallback, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 
 export default function Filters({ onChange, typeList, onChangeType }: { 
   onChange: (value: string) => void,

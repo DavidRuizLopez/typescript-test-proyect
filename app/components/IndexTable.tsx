@@ -1,6 +1,6 @@
 'use client'
 import React, { ChangeEvent, Key, useState } from "react";
-import { Box, Button, Modal, Paper, Table, TableBody, TableCell, TableContainer, TableHead, TablePagination, TableRow, Typography } from "@mui/material"
+import { Box, Table, TableBody, TableCell, TableContainer, TableHead, TablePagination, TableRow, Typography } from "@mui/material"
 import { PokemonData } from "../page";
 import Image from "next/image";
 import PokemonModal from "./PokemonModal";
