@@ -21,7 +21,7 @@ interface Stats {
   egg: string[],
 }
 
-export interface PokemonsData {
+export interface PokemonData {
   id: number
   name: string,
   type: string[],
@@ -57,6 +57,6 @@ function procesPokeData () {
 
 export default function Home() {
   return (
-    <IndexTable list={procesPokeData() as PokemonsData[]}/>
+    <IndexTable list={procesPokeData() as PokemonData[]}/>
   );
 }
