@@ -4,30 +4,30 @@ import data from "../public/pokedex.json"
 import IndexTable from "./components/IndexTable";
 
 interface OtherNames {
-  japanese: String,
-  chinese: String,
-  french: String
+  japanese: string,
+  chinese: string,
+  french: string
 }
 
 interface Stats {
-  hp: Number,
-  atack: Number,
-  defense: Number,
-  spAtack: Number,
-  spDefense: Number,
-  speed: Number,
-  height?: String,
-  weight?: String,
-  egg: String[],
+  hp: number,
+  atack: number,
+  defense: number,
+  spAtack: number,
+  spDefense: number,
+  speed: number,
+  height?: string,
+  weight?: string,
+  egg: string[],
 }
 
 export interface PokemonsData {
-  id: Number
-  name: String,
-  type: String[],
+  id: number
+  name: string,
+  type: string[],
   otherNames: OtherNames,
   stats: Stats,
-  image?: String
+  image?: string
 }
 
 function procesPokeData () {

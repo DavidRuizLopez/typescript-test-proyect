@@ -1,12 +1,13 @@
 import React, { Key } from "react";
 import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow } from "@mui/material"
 import { PokemonsData } from "../page";
+import Image from "next/image";
 
 export default function IndexTable({list}:{list: PokemonsData[]}) {
 
   return (
     <TableContainer>
-      <Table>
+      <Table stickyHeader>
         <TableHead>
           <TableRow>
             <TableCell key={"pokemonImage"} style={{ color: "white", minWidth: "100px" }} align="center" >
@@ -29,9 +30,21 @@ export default function IndexTable({list}:{list: PokemonsData[]}) {
         <TableBody>
           {list.map((pokemon) => {
             return(
-              <TableRow key={pokemon.id as Key}>
-                <TableCell>
-
+              <TableRow hover role="checkbox" key={pokemon.id as Key}>
+                <TableCell key={`image-${pokemon.name}-${pokemon.id}` as Key} style={{ color: "white", minWidth: "100px" }} align="center">
+                  <Image height={100} width={100} src={pokemon.image ? pokemon.image : '/public/interrogation.png'} alt={pokemon.name} />
+                </TableCell>
+                <TableCell key={`name-${pokemon.name}-${pokemon.id}` as Key} style={{ color: "white", minWidth: "100px" }} align="center">
+                  {pokemon.name}
+                </TableCell>
+                <TableCell key={`types-${pokemon.name}-${pokemon.id}` as Key} style={{ color: "white", minWidth: "100px" }} align="center">
+                  {pokemon.type}
+                </TableCell>
+                <TableCell key={`height-${pokemon.name}-${pokemon.id}` as Key} style={{ color: "white", minWidth: "100px" }} align="center">
+                  {pokemon.stats.height}
+                </TableCell>
+                <TableCell key={`weight-${pokemon.name}-${pokemon.id}` as Key} style={{ color: "white", minWidth: "100px" }} align="center">
+                  {pokemon.stats.weight}
                 </TableCell>
               </TableRow>
             )
