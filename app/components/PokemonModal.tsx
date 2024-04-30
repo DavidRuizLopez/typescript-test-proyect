@@ -28,12 +28,12 @@ export default function PokemonModal ({pokemon, setClose}: {pokemon: PokemonData
                 <Typography variant="overline" display="block" gutterBottom>Type/s: {pokemon?.type.join(' ')}</Typography>
                 <Typography variant="overline" display="block" gutterBottom>Other Names</Typography>
                 {pokemon && Object.entries(pokemon.otherNames).map(([key, value]) => (
-                  <Typography variant="overline" display="block" gutterBottom>{key}: {value}</Typography>
+                  <Typography key={`${pokemon.name}-${key}`} variant="overline" display="block" gutterBottom>{key}: {value}</Typography>
                 ))}
               </Box>
               <Box ml={3}>
                 {pokemon && Object.entries(pokemon.stats).map(([key, value]) => (
-                  <Typography variant="overline" display="block" gutterBottom>{key}: {value}</Typography>
+                  <Typography key={`${pokemon.name}-${key}`} variant="overline" display="block" gutterBottom>{key}: {value}</Typography>
                 ))}
               </Box>
             </Box>
