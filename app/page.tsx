@@ -1,7 +1,8 @@
 'use client'
-import React from "react";
+import React, { useEffect, useState } from "react";
 import data from "../public/pokedex.json"
 import IndexTable from "./components/IndexTable";
+import Filters from "./components/FIlters";
 
 interface OtherNames {
   japanese: string,
@@ -18,12 +19,12 @@ interface Stats {
   speed: number,
   height?: string,
   weight?: string,
-  egg: string[],
 }
 
 export interface PokemonData {
   id: number
   name: string,
+  description: string,
   type: string[],
   otherNames: OtherNames,
   stats: Stats,
@@ -37,6 +38,7 @@ function procesPokeData () {
         id: pokemon.id,
         name: pokemon.name['english'],
         type: pokemon.type,
+        description: pokemon.description,
         otherNames: { japanese: pokemon.name['japanese'], chinese: pokemon.name['chinese'], french: pokemon.name['french'] },
         stats: {
           hp: pokemon.base ? pokemon.base['HP'] : 0,
@@ -47,7 +49,6 @@ function procesPokeData () {
           speed: pokemon.base ? pokemon.base['Speed'] : 0,
           height: pokemon?.profile['height'],
           weight: pokemon?.profile['weight'],
-          egg: pokemon?.profile['egg'],
         },
         image: pokemon?.image['hires']
       }
@@ -56,7 +57,38 @@ function procesPokeData () {
 }
 
 export default function Home() {
+  const [nameFilter, setNameFilter] = useState<string>('');
+  const [typeFilter, setTypeFilter] = useState<string[]>([]);
+  const [pokemonList, setPokemonList] = useState<PokemonData[]>(procesPokeData())
+
+  const handleTypes = () => {
+    const uniques: Set<string> = new Set<string>();
+    procesPokeData().map((pokemon) => pokemon.type).forEach(array => {
+      array.forEach(item => {
+        uniques.add(item);
+      });
+    });
+
+    return Array.from(uniques)
+  }
+
+  useEffect(() => {
+    setPokemonList(procesPokeData().filter((pokemon) => pokemon.name.toLowerCase().includes(nameFilter.toLowerCase()) && (typeFilter.length !== 0 ? typeFilter.some(type => pokemon.type.includes(type)) : true )));
+  }, [nameFilter, typeFilter])
+
+  const handlerNameFilter = (value: string) => {
+    setNameFilter(value);
+  }
+
+  const filterByType = (values: string[]) => {
+    setTypeFilter(values);
+    setPokemonList(values.length !== 0 ? procesPokeData().filter((pokemon) => values.some(type => pokemon.type.includes(type))) : procesPokeData())
+  }
+
   return (
-    <IndexTable list={procesPokeData() as PokemonData[]}/>
+    <>
+      <Filters onChange={handlerNameFilter} typeList={handleTypes()} onChangeType={filterByType}/>
+      <IndexTable list={pokemonList}/>
+    </>
   );
 }
